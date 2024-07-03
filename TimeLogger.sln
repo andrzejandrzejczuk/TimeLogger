@@ -5,13 +5,13 @@ VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeLogger.API", "src\TimeLogger.API\TimeLogger.API.csproj", "{EE2C48DD-2C2D-4248-9725-449C225B1245}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeLogger.AppHost", "src\TimeLogger.AppHost\TimeLogger.AppHost.csproj", "{755BEAED-78BC-46CA-BBC7-3B426E038B68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeLogger.AppHost", "src\TimeLogger.AppHost\TimeLogger.AppHost.csproj", "{755BEAED-78BC-46CA-BBC7-3B426E038B68}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeLogger.ServiceDefaults", "src\TimeLogger.ServiceDefaults\TimeLogger.ServiceDefaults.csproj", "{BC175123-EDC7-4A34-BD8F-753545E45FBE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8731229A-AAF2-4CBF-AD3A-F7F08F911B74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeLogger.Contract", "src\TimeLogger.Contract\TimeLogger.Contract.csproj", "{6E2A10A6-D151-42E9-90D2-2BC8A717D487}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeLogger.Contract", "src\TimeLogger.Contract\TimeLogger.Contract.csproj", "{6E2A10A6-D151-42E9-90D2-2BC8A717D487}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeReports.API", "src\TimeReports.API\TimeReports.API.csproj", "{3C359D92-9F6F-45E8-9490-5DDB1598A976}"
 EndProject
@@ -19,9 +19,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TimeLogger", "TimeLogger", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TimeReports", "TimeReports", "{ADC93BF7-2ED3-426D-A6AC-E3895B6E0277}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeReports.Contract", "src\TimeReports.Contract\TimeReports.Contract.csproj", "{BCA4E606-CE2B-4490-8674-E09E22AB890E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeReports.Contract", "src\TimeReports.Contract\TimeReports.Contract.csproj", "{BCA4E606-CE2B-4490-8674-E09E22AB890E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeLogger.Application", "src\TimeLogger.Application\TimeLogger.Application.csproj", "{F9828E37-101D-4BFC-8351-B57D4ABFD03E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeLogger.Application", "src\TimeLogger.Application\TimeLogger.Application.csproj", "{F9828E37-101D-4BFC-8351-B57D4ABFD03E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeLogger.Infrastructure", "src\TimeLogger.Infrastructure\TimeLogger.Infrastructure.csproj", "{1B73A851-5E37-4510-A897-3873B485C05D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeLogger.Domain", "src\TimeLogger.Domain\TimeLogger.Domain.csproj", "{2A14B625-EF59-4604-A4E4-7BC472EA8712}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +61,14 @@ Global
 		{F9828E37-101D-4BFC-8351-B57D4ABFD03E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9828E37-101D-4BFC-8351-B57D4ABFD03E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9828E37-101D-4BFC-8351-B57D4ABFD03E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B73A851-5E37-4510-A897-3873B485C05D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B73A851-5E37-4510-A897-3873B485C05D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B73A851-5E37-4510-A897-3873B485C05D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B73A851-5E37-4510-A897-3873B485C05D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A14B625-EF59-4604-A4E4-7BC472EA8712}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A14B625-EF59-4604-A4E4-7BC472EA8712}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A14B625-EF59-4604-A4E4-7BC472EA8712}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A14B625-EF59-4604-A4E4-7BC472EA8712}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +79,8 @@ Global
 		{3C359D92-9F6F-45E8-9490-5DDB1598A976} = {ADC93BF7-2ED3-426D-A6AC-E3895B6E0277}
 		{BCA4E606-CE2B-4490-8674-E09E22AB890E} = {ADC93BF7-2ED3-426D-A6AC-E3895B6E0277}
 		{F9828E37-101D-4BFC-8351-B57D4ABFD03E} = {A8B9B28C-68F1-48B1-9645-DD3B44DF1AC7}
+		{1B73A851-5E37-4510-A897-3873B485C05D} = {A8B9B28C-68F1-48B1-9645-DD3B44DF1AC7}
+		{2A14B625-EF59-4604-A4E4-7BC472EA8712} = {A8B9B28C-68F1-48B1-9645-DD3B44DF1AC7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {83AE28CC-5A11-4C34-850A-13FA3A3D3B06}

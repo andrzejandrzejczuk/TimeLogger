@@ -10,11 +10,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Aspire.Azure.Messaging.ServiceBus" Version="8.0.2" />
     <PackageReference Include="Aspire.Hosting.AppHost" Version="8.0.0" />
+    <PackageReference Include="Aspire.Hosting.Azure.ServiceBus" Version="8.0.2" />
+    <PackageReference Include="Aspire.Hosting.SqlServer" Version="8.0.2" />
+    <PackageReference Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\TimeLogger.API\TimeLogger.API.csproj" />
+    <ProjectReference Include="..\TimeLogger.Infrastructure\TimeLogger.Infrastructure.csproj" />
     <ProjectReference Include="..\TimeReports.API\TimeReports.API.csproj" />
   </ItemGroup>
 

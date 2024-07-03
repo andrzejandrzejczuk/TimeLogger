@@ -4,9 +4,13 @@ using TimeLogger.API.MappingProfiles;
 using TimeLogger.API.Middlewares;
 using TimeLogger.API.Validators;
 using TimeLogger.Application;
+using TimeLogger.Infrastructure;
 using Asp.Versioning;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.AddSqlServerDbContext<TimeLoggerDbContext>("TimeLoggerDbConnection");
+builder.AddAzureServiceBusClient("ServiceBus");
 
 builder.AddServiceDefaults();
 
@@ -14,6 +18,7 @@ builder.AddServiceDefaults();
 builder.Services.AddValidatorsFromAssemblyContaining<CreateProjectRequestValidator>();
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddFluentValidationClientsideAdapters();
+
 
 builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
@@ -31,7 +36,9 @@ builder.Services.AddApiVersioning(options =>
     options.SubstituteApiVersionInUrl = true;
 });
 
-builder.Services.AddTimeLoggerApplication();
+builder.Services
+    .AddTimeLoggerApplication()
+    .AddTimeLoggerInfrastructure(builder.Configuration);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

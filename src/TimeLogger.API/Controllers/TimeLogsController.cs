@@ -47,7 +47,7 @@ namespace TimeLogger.API.Controllers
         [HttpDelete("delete/{id}")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Remove(Guid id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             var command = new RemoveTimeEntryByIdCommand { Id = id };
 

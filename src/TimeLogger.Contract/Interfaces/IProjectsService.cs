@@ -7,7 +7,7 @@ namespace TimeLogger.Contract.Interfaces
     public interface IProjectsService
     {
         [Post("Projects/create")]
-        Task<IApiResponse> Create(CreateProjectRequest request);
+        Task<IApiResponse> Create([Body] CreateProjectRequest request);
 
         [Get("Projects/{id}")]
         Task<IApiResponse<GetProjectByIdResponse>> GetById(Guid id);
