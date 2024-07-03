@@ -5,7 +5,7 @@ using TimeLogger.Application.Queries;
 using TimeLogger.Application.Queries.Responses;
 using TimeLogger.Infrastructure;
 
-namespace TimeLogger.Application.Handlers
+namespace TimeLogger.Application.Handlers.Queries
 {
     public class GetTimeEntryByIdQueryHandler : IRequestHandler<GetTimeEntryByIdQuery, Result<GetTimeEntryByIdQueryResponse>>
     {

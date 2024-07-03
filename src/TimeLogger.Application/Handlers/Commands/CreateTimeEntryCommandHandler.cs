@@ -4,7 +4,7 @@ using TimeLogger.Application.Commands;
 using TimeLogger.Infrastructure;
 using TimeLogger.Domain;
 
-namespace TimeLogger.Application.Handlers
+namespace TimeLogger.Application.Handlers.Commands
 {
     public class CreateTimeEntryCommandHandler : IRequestHandler<CreateTimeEntryCommand, Result<CreateTimeEntryCommandResponse>>
     {
@@ -18,7 +18,7 @@ namespace TimeLogger.Application.Handlers
         public async Task<Result<CreateTimeEntryCommandResponse>> Handle(CreateTimeEntryCommand request, CancellationToken cancellationToken)
         {
             var id = Guid.NewGuid();
-            
+
             await _dbContext.TimeEntries.AddAsync(new TimeEntry
             {
                 Id = id,

@@ -5,7 +5,7 @@ using TimeLogger.Application.Commands.Responses;
 using TimeLogger.Domain;
 using TimeLogger.Infrastructure;
 
-namespace TimeLogger.Application.Handlers
+namespace TimeLogger.Application.Handlers.Commands
 {
     public class CreateProjectCommandHandler : IRequestHandler<CreateProjectCommand, Result<CreateProjectCommandResponse>>
     {
