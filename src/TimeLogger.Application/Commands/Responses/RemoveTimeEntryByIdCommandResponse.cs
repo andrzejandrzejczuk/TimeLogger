@@ -2,5 +2,6 @@
 {
     public class RemoveTimeEntryByIdCommandResponse
     {
+        public Guid Id { get; set; }
     }
 }

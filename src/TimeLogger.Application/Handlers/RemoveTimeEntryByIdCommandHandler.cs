@@ -1,14 +1,38 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
+using System.Net;
 using TimeLogger.Application.Commands;
 using TimeLogger.Application.Commands.Responses;
+using TimeLogger.Infrastructure;
 
 namespace TimeLogger.Application.Handlers
 {
-    public class RemoveTimeEntryByIdCommandHandler : IRequestHandler<RemoveTimeEntryByIdCommand, RemoveTimeEntryByIdCommandResponse>
+    public class RemoveTimeEntryByIdCommandHandler : IRequestHandler<RemoveTimeEntryByIdCommand, Result<RemoveTimeEntryByIdCommandResponse>>
     {
-        public Task<RemoveTimeEntryByIdCommandResponse> Handle(RemoveTimeEntryByIdCommand request, CancellationToken cancellationToken)
+        private readonly TimeLoggerDbContext _dbContext;
+
+        public RemoveTimeEntryByIdCommandHandler(TimeLoggerDbContext dbContext)
         {
-            return Task.FromResult(new RemoveTimeEntryByIdCommandResponse());
+            _dbContext = dbContext;
+        }
+
+        public async Task<Result<RemoveTimeEntryByIdCommandResponse>> Handle(RemoveTimeEntryByIdCommand request, CancellationToken cancellationToken)
+        {
+            var timeEntry = await _dbContext.TimeEntries.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
+            
+            if (timeEntry == null) 
+            {
+                return Result<RemoveTimeEntryByIdCommandResponse>.Failure("Time Entry not found", (int)HttpStatusCode.NotFound);
+            }
+
+            _dbContext.Remove(timeEntry);
+
+            await _dbContext.SaveChangesAsync(cancellationToken);
+
+            return Result<RemoveTimeEntryByIdCommandResponse>.Success(new RemoveTimeEntryByIdCommandResponse
+            {
+               Id = request.Id
+            });
         }
     }
 }

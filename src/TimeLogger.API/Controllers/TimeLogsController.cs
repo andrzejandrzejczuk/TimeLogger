@@ -30,7 +30,8 @@ namespace TimeLogger.API.Controllers
         [HttpPost("create")]
         [ProducesResponseType(typeof(CreateTimeEntryResponse), (int)HttpStatusCode.Created)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> Create([FromBody] CreateTimeEntryRequest request)
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        public async Task<IActionResult> Create([FromBody] CreateTimeEntryRequest request, CancellationToken cancellationToken)
         {
             if (!ModelState.IsValid)
             {
@@ -38,8 +39,14 @@ namespace TimeLogger.API.Controllers
             }
 
             var command = _mapper.Map<CreateTimeEntryCommand>(request);
-            var commandResponse = await _mediator.Send(command);
-            var response = _mapper.Map<CreateTimeEntryResponse>(commandResponse);
+            var commandResponse = await _mediator.Send(command, cancellationToken);
+
+            if (!commandResponse.IsSuccess)
+            {
+                return StatusCode(commandResponse.StatusCode, new { error = commandResponse.Error });
+            }
+
+            var response = _mapper.Map<CreateTimeEntryResponse>(commandResponse.Value);
 
             return CreatedAtAction(nameof(GetById), new { id = response.Id }, response);
         }
@@ -47,15 +54,16 @@ namespace TimeLogger.API.Controllers
         [HttpDelete("delete/{id}")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Delete(Guid id)
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
         {
             var command = new RemoveTimeEntryByIdCommand { Id = id };
 
-            var removeTimeEntryByIdCommandResponse = await _mediator.Send(command);
+            var commandResponse = await _mediator.Send(command, cancellationToken);
 
-            if(removeTimeEntryByIdCommandResponse == null)
+            if(commandResponse.IsSuccess)
             {
-                return NotFound();
+                return StatusCode(commandResponse.StatusCode, new { error = commandResponse.Error });
             }
 
             return Ok();
@@ -64,18 +72,19 @@ namespace TimeLogger.API.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(GetTimeEntryByIdResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public async Task<IActionResult> GetById(Guid id)
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
         {
             var query = new GetTimeEntryByIdQuery { Id = id };
 
-            var getTimeEntryByIdQueryResponse = await _mediator.Send(query);
+            var queryResponse = await _mediator.Send(query, cancellationToken);
 
-            if (getTimeEntryByIdQueryResponse == null)
+            if (!queryResponse.IsSuccess)
             {
-                return NotFound();
+                return StatusCode(queryResponse.StatusCode, new { error = queryResponse.Error });
             }
 
-            var getByIdResponse = _mapper.Map<GetTimeEntryByIdResponse>(getTimeEntryByIdQueryResponse);
+            var getByIdResponse = _mapper.Map<GetTimeEntryByIdResponse>(queryResponse.Value);
 
             return Ok(getByIdResponse);
         }

@@ -7,7 +7,8 @@ namespace TimeLogger.Infrastructure
     {
         public TimeLoggerDbContext(DbContextOptions<TimeLoggerDbContext> options) 
             : base(options) 
-        { 
+        {
+            Database.EnsureCreated();
         }
 
         public DbSet<Project> Projects { get; set; }

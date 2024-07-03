@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TimeLogger.Contract\TimeLogger.Contract.csproj" />
+    <ProjectReference Include="..\TimeLogger.Infrastructure\TimeLogger.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

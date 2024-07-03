@@ -29,7 +29,8 @@ namespace TimeLogger.API.Controllers
         [HttpPost("create")]
         [ProducesResponseType(typeof(CreateProjectResponse), (int)HttpStatusCode.Created)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> Create([FromBody] CreateProjectRequest request)
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        public async Task<IActionResult> Create([FromBody] CreateProjectRequest request, CancellationToken cancellationToken = default)
         {
             if (!ModelState.IsValid)
             {
@@ -38,9 +39,14 @@ namespace TimeLogger.API.Controllers
 
             var command = _mapper.Map<CreateProjectCommand>(request);
             
-            var commandResponse = await _mediator.Send(command);
+            var commandResponse = await _mediator.Send(command, cancellationToken);
 
-            var createProjectResponse = _mapper.Map<CreateProjectResponse>(commandResponse);
+            if (!commandResponse.IsSuccess)
+            {
+                return StatusCode(commandResponse.StatusCode, new { error = commandResponse.Error });
+            }
+
+            var createProjectResponse = _mapper.Map<CreateProjectResponse>(commandResponse.Value);
 
             return CreatedAtAction(nameof(GetById), new { id = createProjectResponse.Id }, createProjectResponse);
         }
@@ -48,18 +54,19 @@ namespace TimeLogger.API.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(GetProjectByIdResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public async Task<IActionResult> GetById(Guid id)
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
         {
             var query = new GetProjectByIdQuery { Id = id };
             
-            var getProjectByIdQueryResponse = await _mediator.Send(query);
+            var getProjectByIdQueryResponse = await _mediator.Send(query, cancellationToken);
 
-            if (getProjectByIdQueryResponse == null)
+            if (!getProjectByIdQueryResponse.IsSuccess)
             {
-                return NotFound();
+                return StatusCode(getProjectByIdQueryResponse.StatusCode, new { error = getProjectByIdQueryResponse.Error });
             }
 
-            var getByIdResponse = _mapper.Map<GetProjectByIdResponse>(getProjectByIdQueryResponse);
+            var getByIdResponse = _mapper.Map<GetProjectByIdResponse>(getProjectByIdQueryResponse.Value);
 
             return Ok(getByIdResponse);
         }

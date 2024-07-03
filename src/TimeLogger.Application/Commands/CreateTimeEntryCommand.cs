@@ -3,7 +3,7 @@ using TimeLogger.Application.Commands.Responses;
 
 namespace TimeLogger.Application.Commands
 {
-    public class CreateTimeEntryCommand : IRequest<CreateTimeEntryCommandResponse>
+    public class CreateTimeEntryCommand : IRequest<Result<CreateTimeEntryCommandResponse>>
     {
         public Guid ProjectId { get; set; }
         public DateTime Date { get; set; }
