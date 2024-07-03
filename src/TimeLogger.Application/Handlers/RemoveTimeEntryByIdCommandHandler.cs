@@ -13,7 +13,7 @@ namespace TimeLogger.Application.Handlers
 
         public RemoveTimeEntryByIdCommandHandler(TimeLoggerDbContext dbContext)
         {
-            _dbContext = dbContext;
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(TimeLoggerDbContext));
         }
 
         public async Task<Result<RemoveTimeEntryByIdCommandResponse>> Handle(RemoveTimeEntryByIdCommand request, CancellationToken cancellationToken)

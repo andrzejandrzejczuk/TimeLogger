@@ -12,7 +12,7 @@ namespace TimeLogger.Application.Handlers
 
         public CreateTimeEntryCommandHandler(TimeLoggerDbContext dbContext)
         {
-            _dbContext = dbContext;
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(TimeLoggerDbContext));
         }
 
         public async Task<Result<CreateTimeEntryCommandResponse>> Handle(CreateTimeEntryCommand request, CancellationToken cancellationToken)

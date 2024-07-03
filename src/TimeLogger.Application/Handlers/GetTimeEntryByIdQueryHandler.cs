@@ -13,7 +13,7 @@ namespace TimeLogger.Application.Handlers
 
         public GetTimeEntryByIdQueryHandler(TimeLoggerDbContext dbContext)
         {
-            _dbContext = dbContext;
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(TimeLoggerDbContext));
         }
 
         public async Task<Result<GetTimeEntryByIdQueryResponse>> Handle(GetTimeEntryByIdQuery request, CancellationToken cancellationToken)
