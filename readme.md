@@ -2,6 +2,5 @@ The TimeLogger is a demonstration ASP.NET Core project where I utilized .NET Asp
 
 TODO:
 - Azure Function
-- Infrastructure as a Code
 - CI/CD
 - Frontend application
